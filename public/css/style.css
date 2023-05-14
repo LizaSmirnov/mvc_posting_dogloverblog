@@ -4,17 +4,22 @@ html {
     /* 1 */
     -webkit-text-size-adjust: 100%;
     /* 2 */
-  }
-
-body {
-    font-size: 100%;
-    font-family: "Source Code Pro", Arial, Helvetica, sans-serif;
-    line-height: 1.4;
-    padding: 50px;
-    background-color: #fff;
 }
 
-h1, h2, h3 {
+a {
+    color: hotpink;
+}
+
+/* mouse over link */
+a:hover {
+    color: orangered;
+  }
+  
+header, .po:not(:last-child):not(:last-child) {
+    border-bottom: 1px solid violet;
+  }
+  
+  h1, h2, h3 {
     font-weight: 900;
 }
 
@@ -26,4 +31,28 @@ h1 {
     margin: 30px 0;
     text-align: center;
     color: blueviolet
+}
+
+  .no-button {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: purple;
+    text-decoration: none;
+    font-size: 100%;
+}
+
+
+.no-button:hover {
+    color: orange;
+    text-decoration: underline;
+}
+
+body {
+    font-size: 100%;
+    font-family: "Source Code Pro", Arial, Helvetica, sans-serif;
+    line-height: 1.4;
+    padding: 50px;
+    background-color: white;
 }

@@ -1,5 +1,7 @@
 const router = require("express").Router();
 const { User } = require("../../models");
+
+
 router.get("/", (req, res) => {
   console.log("get users route hit");
   res.json({ message: "get users route hit" });
