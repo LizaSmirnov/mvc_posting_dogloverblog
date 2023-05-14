@@ -1,6 +1,7 @@
 const router = require("express").Router();
 
 router.get("/", (req, res) => {
+
   // read your database
   //use a findAll
   // you will receive an array of data
@@ -35,5 +36,11 @@ router.get("/login", (req, res) => {
   }
   res.render("login");
 });
+
+//render static image
+// app.get("/static", (req, res) => {
+//     res.render("static");
+// });
+  
 
 module.exports = router;

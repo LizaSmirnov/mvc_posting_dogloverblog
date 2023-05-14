@@ -9,16 +9,22 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <header>
-          This is the header
+          Welcome all dog lovers!
           {{#if logged_id}}
               <a href="/dashboard">Dashboard</a>
           {{else}}
               <a href="/login">Login</a>
               <a href="/signup">Signup</a>
+              
           {{/if}}
         </header>
 {{{body}}}
 
+
+  <!-- Render script for logged in users only -->
+  {{#if logged_in}}
+  <script src="/js/logout.js"></script>
+  {{/if}}
 
 
 
