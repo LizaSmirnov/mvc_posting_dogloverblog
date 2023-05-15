@@ -1,10 +1,30 @@
 const router = require("express").Router();
-const { User } = require("../../models");
+const { User, Post, Comment } = require("../../models");
+const bcrypt = require("bcrypt"); 
 
-
+//find all users 
 router.get("/", (req, res) => {
-  console.log("get users route hit");
-  res.json({ message: "get users route hit" });
+ User.findAll({
+  include: [ { model: Post }, { model: Comment } ]
+})
+.then(dbUserData => res.json(dbUserData))
+});
+
+//find one user by id
+router.get("/:id", (req, res) => {
+  User.findOne({
+    where: {
+      id: req.params.id
+    },
+    include: [ { model: Post }, { model: Comment } ]
+  }).then(dbUserData => {
+    if (!dbUserData) {
+      res.status(404).json({ message: "No user found with this id" });
+      return;
+    } else {
+      res.json(dbUserData);
+    }
+  })
 });
 
 //create a new user
@@ -23,6 +43,15 @@ router.post("/", async (req, res) => {
     res.status(400).json(error);
   }
 });
+//sign up a new user
+router.get("/signup", (req, res) => {
+  if (req.session.logged_in) {
+    res.redirect("/");
+    return;
+  }
+  res.render("signup");
+});
+
 //login a user based on the email and that password matches saved email
 router.post("/login", async (req, res) => {
     try {
@@ -50,10 +79,10 @@ router.post("/login", async (req, res) => {
     }
   });
 //destroy the session loging out the user
-  router.post('/logout', (req, res) => {
+  router.delete('/logout', (req, res) => {
     if (req.session.logged_in) {
       req.session.destroy(() => {
-      res.status(204).end(); 
+      res.status(200).end(); 
       });
     } else {
       res.status(404).end();  

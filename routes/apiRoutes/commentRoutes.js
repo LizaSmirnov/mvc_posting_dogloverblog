@@ -2,13 +2,42 @@ const router = require('express').Router();
 const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
+
+//get all Comments
 router.get('/', (req, res) => {
-    console.log("get comment route hit")
-    res.json({message: "get comment route hit"})
+    Comment.findAll({})
+    .then(dbCommentData => res.json(dbCommentData))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err)
+    })
+});
+
+//get one Comment by id
+router.get('/:id', (req, res) => {
+    Comment.findOne({
+        where:{
+            id:req.params.id
+        }
+    })
+    .then(dbCommentData => {
+        if(!dbCommentData){
+            res.status(404).json({message: 'No Comment found with this id bro...'});        
+            return; //lets users try again also so not left hanging
+        }
+        res.json(dbCommentData);
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err)
+    })
 });
 
 //create a new Comment
 router.post('/', withAuth, async (req, res) => {
+    if(!req.session.loggedIn){
+        res.redirect('/login'); //if not logged in, redirect to login page
+    }
     try {
         const newComment = await Comment.create({
             ...req.body,

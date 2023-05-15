@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { User, Post , Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-//get  all posts
+//get  all posts and assoc user and comments
 router.get('/', (req,res) => {
   try {
     Post.findAll({include :[User, Comment]})
@@ -64,8 +64,9 @@ router.put('/:id', (req, res) => {
       .catch((err) => {
         // console.log(err);
         res.status(400).json(err);
-      });
-  }),
+      })
+  });
+
 //delete post with authenticated id and verified post id
 router.delete('/:id', withAuth, async (req,res) => {
   if(!req.session.user){

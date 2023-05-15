@@ -1,8 +1,10 @@
-{{!-- <div class="text-center">
-  <h2>{{Title}}</h2>
-  <p>{{body}}</p>
-  <p>Created by {{user.name}} on {{format_date date_created}}</p>
-  <p>
-    <button class="btn btn-primary"></button>
-  </p>
-</div> --}}
+<h1></h1>
+  <section class="card">
+      <a href="/blogs/{{hid}}" class="card-body">
+        <h3 class="card-title">{{title}}</h3> 
+        <h4>Posted by {{user.username}} on {{createdAt}}</h4>
+        <p class="card-text">{{content}}</p>
+    </a>
+  </section>
+
+<script src="/js/profile.js"></script>

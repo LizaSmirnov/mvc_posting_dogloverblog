@@ -4,30 +4,20 @@
     <link rel="stylesheet" href="/css/style.css" />
     <title>Tech Blog</title>
 </head>
-<body>
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <header>
-          <h1><a href ='/'>Tech Blog</a></h1>
+  <body>
+    <header>
+      <h1><a href ='/' id="navHeader" class="text-pink">Tech🖥️Blog</a></h1>
           {{#if logged_id}}
-              <a href="/profile">profile</a>
-              <button class="no-button" id="logout">logout</button>
+              <a href="/">Home🏠</a>
+              <a href="/profile">Profile📓</a>
+              <button class="no-button" id="logout">Logout📕</button>
           {{else}}
-              <a href="/login">Login</a>
-              <a href="/signup">Signup</a>
-              
+              <a href="/login">Login📗</a>
+              <a href="/signup">Signup💎</a>
+              <a href="/">Home🏠</a>
           {{/if}}
         </header>
 {{{body}}}
 
-
-  <!-- Render script for logged in users only -->
-  {{#if logged_in}}
-  <script src="/js/logout.js"></script>
-  {{/if}}
-
-
-
-<footer>Footer Content</footer>
+<footer>Tech Blog by Liza</footer>
 </body>

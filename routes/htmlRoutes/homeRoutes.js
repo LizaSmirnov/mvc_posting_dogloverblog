@@ -23,21 +23,12 @@ router.get("/", async (req, res) => {
   res.status(404).json(err);
 }
 });
-router.get("/", (req, res) => {
 
-  // read your database
-  //use a findAll
-  // you will receive an array of data
+  // const posts = [
+  //   { id: 1, title: "Post 1", body: "This is post 1" },
+  //   { id: 2, title: "Post 2", body: "This is post 2" },
+  // ];
 
-  const posts = [
-    { id: 1, title: "Post 1", body: "This is post 1" },
-    { id: 2, title: "Post 2", body: "This is post 2" },
-  ];
-  res.render("home", {
-    posts,
-    logged_id: req.session.logged_in,
-  });
-});
 
 //get posts 
 router.get("/post/:id", async (req, res) => {
@@ -62,7 +53,7 @@ router.get("/post/:id", async (req, res) => {
 });
 
 
-//when clicked on post grab
+//when clicked on post grab display user name 
 router.get('/post/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
