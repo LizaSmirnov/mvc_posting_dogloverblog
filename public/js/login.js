@@ -1,19 +1,20 @@
 console.log("login.js loaded")
 
-    function loginFormHandler (event){
+    document.querySelector('button').addEventListener('click',async (event)=>{
     event.preventDefault();
+    var name = document.querySelector("input[name=name]").value.trim();
     var email = document.querySelector("input[name=email]").value.trim();
     var password = document.querySelector("input[name=password]").value.trim();
 
-    if( !email || !password ) {
+    if( !name || !email || !password ) {
         alert("Wrong email or password!")
         return;
     }
-
-    const response = fetch("/api/users", {
+    try {
+    const response = await fetch("/api/users", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({email, password})
+        body: JSON.stringify({name, email, password})
 })
     console.log(response)
     if(response.ok) {
@@ -21,6 +22,9 @@ console.log("login.js loaded")
     } else{
         alert(response.statusText)
     }
-}
+} catch (err) {
+    console.log(err);   
+};
+});
 
-document.getElementById("signin-form").addEventListener("submit", loginFormHandler);
+

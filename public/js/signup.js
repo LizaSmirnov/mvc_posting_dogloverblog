@@ -1,6 +1,6 @@
 console.log("signup.js loaded")
 
-document.getElementById("signup-form").addEventListener("submit", (event) => {
+document.getElementById("signup-form").addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const name = document.querySelector("input[name=name]").value.trim();
@@ -11,19 +11,20 @@ document.getElementById("signup-form").addEventListener("submit", (event) => {
         alert("You must fill out all fields to sign up!")
         return;
     }
-
-    const response = fetch("/api/users", {
+    try {
+    const response = await fetch("/api/users", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({name, email, password})
-}).then((response) => {
-    console.log(response)
+})
     if(response.ok) {
-        window.location.href("/profile");
+        document.location.replace("/profile")
     } else{
         alert(response.statusText)
     }
-});
+} catch (err) {
+    console.log(err);   
+};
 });
 
 

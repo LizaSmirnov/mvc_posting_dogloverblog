@@ -1,4 +1,3 @@
-const { doc } = require("prettier");
 
 const name = document.querySelector('#post-title').value.trim();
 const description = document.querySelector('#post-body').value.trim();
