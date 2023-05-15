@@ -27,7 +27,3 @@ const signupFormHandler = async (event) => {
 document.getElementById("signup-form").addEventListener("submit", signupFormHandler);
 
 
-const name = "Alex"
-const email = "Alex@email.com"
-var person = {name, email}
-console.log(person)

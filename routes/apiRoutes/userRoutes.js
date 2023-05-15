@@ -31,17 +31,16 @@ router.post("/login", async (req, res) => {
       const userData = await User.findOne({where: {email: req.body.email}});
       if(!userData){
         res.status(400).json({message: "Incorrect email or password, please try again"})
-        return
+        return;
       }
       var validPassword = await userData.checkPassword(req.body.password);
       if(!validPassword){
         res.status(400).json({message: "Incorrect email or password, please try again"})
-        return
+        return;
       }
       req.session.save(() => {
         req.session.user_id = userData.id;
         req.session.logged_in = true;
-        res.status(200).json(userData);
         // send the response back to the client
         res.json({ user: userData, message: 'You are now logged in!' });
       });

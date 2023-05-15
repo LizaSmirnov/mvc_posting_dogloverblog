@@ -1,9 +1,27 @@
-const newFormHandler = async (event) => {
+const { doc } = require("prettier");
+
+const name = document.querySelector('#post-title').value.trim();
+const description = document.querySelector('#post-body').value.trim();
+const newPost = document.querySelector('#newPost')
+const buttonNewPost = document.querySelector('#buttonNewPost')
+const deletePost = document.querySelector('#deletePost')
+const updatePost = document.querySelector('#updatePost')
+
+  function hideCreateNew(){
+    newPost.hidden= true;
+  }
+
+  //if they want to create new post
+  function buttonNewPost(event) {
     event.preventDefault();
-  
-    const name = document.querySelector('#post-title').value.trim();
-    const description = document.querySelector('#post-body').value.trim();
-  
+    newPost.hidden = false;
+    deletePost.hidden = true;
+  }
+  //create New Post
+  async function newPost(event) {
+    const title = document.querySelector('input[name="post-title"]').value;
+    const body = document.querySelector('input[name="post-body"]').value;
+
     if (title && body) {
       const response = await fetch(`/api/posts`, {
         method: 'POST',
@@ -21,6 +39,8 @@ const newFormHandler = async (event) => {
     }
   };
   
+  deletePost.addEventListener('submit', event =>{
+
   const delButtonHandler = async (event) => {
     if (event.target.hasAttribute('data-id')) {
       const id = event.target.getAttribute('data-id');
@@ -35,13 +55,19 @@ const newFormHandler = async (event) => {
         alert('Failed to delete post');
       }
     }
-  };
+  }
+});
   
   document
     .querySelector('.new-post-form')
-    .addEventListener('submit', newFormHandler);
+    .addEventListener('submit', buttonNewPost);
   
   document
     .querySelector('.post-list')
-    .addEventListener('click', delButtonHandler);
+    .addEventListener('click', newPost);
+  
+    
+  document
+  .querySelector('.submit-post')
+  .addEventListener('click', deletePost);
   

@@ -1,13 +1,42 @@
 const router = require('express').Router();
-const { Post } = require('../../models');
+const { User, Post , Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
+
+//get  all posts
+router.get('/', (req,res) => {
+  try {
+    Post.findAll({include :[User, Comment]})
+    .then(dbPosts => {
+      res.json(dbPosts);
+    })
+  } catch (err){
+    res.status(404).json(err)
+  }
+})
+//get one post by id
+router.get('/:id', (req, res) => {
+  try {
+  Post.findByPk(req.params.id,{include:[User, Comment]})
+  .then(dbPosts =>{
+    res.json(dbPosts)
+  })
+} catch (err){
+  res.status(404).json(err)
+}
+});
 
 //create a new post
 router.post('/', withAuth, async (req, res) => {
+  if(!req.session.user){ //have to be logged in to post comment
+    return res.status(401).json({msg:"Please login!"})
+  }
+
     try {
         const newPost = await Post.create({
             ...req.body,
+            title: req.session.title,
             user_id: req.session.user_id,
+            
         });
         res.status(200).json(newPost);
         res.json({message:'Post has been created!'})
@@ -16,8 +45,33 @@ router.post('/', withAuth, async (req, res) => {
     }
 });
 
+// update post
+router.put('/:id', (req, res) => {
+  if(!req.session.user){
+    return res.status(401).json({msg:"Please login!"})
+    return;
+  }
+    // update product data
+    Post.update(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    })
+      .then((updatedPost) => {
+        // find all associated tags from ProductTag
+        res.json(updatedPost);
+      })
+      .catch((err) => {
+        // console.log(err);
+        res.status(400).json(err);
+      });
+  }),
 //delete post with authenticated id and verified post id
 router.delete('/:id', withAuth, async (req,res) => {
+  if(!req.session.user){
+    return res.status(401).json({msg:"Please login!"})
+    return;
+  }
     try {
         const postData = await Post.destroy({
             where:{
@@ -35,46 +89,5 @@ router.delete('/:id', withAuth, async (req,res) => {
     }
 });
 
-// update post
-router.put('/:id', (req, res) => {
-    // update product data
-    Post.update(req.body, {
-      where: {
-        id: req.params.id,
-      },
-    })
-      .then((post) => {
-        // find all associated tags from ProductTag
-        return Post.findAll({ where: { post_id: req.params.id } });
-      })
-      .then((postData) => {
-        // get list of current tag_ids
-        const postDataIds = postData.map(({ post_id }) => post_id);
-        // create filtered list of new tag_ids
-        const newPosts = req.body.postIds
-          .filter((post_id) => !postDataIds.includes(post_id))
-          .map((post_id) => {
-            return {
-              post_id: req.params.id,
-              post_id,
-            };
-          });
-        // find the tag to remove
-        const postToRemove = postData
-          .filter(({ post_id }) => !req.body.postId.includes(post_id))
-          .map(({ id }) => id);
-  
-        //destroy and create to compete update
-        return Promise.all([
-          Post.destroy({ where: { id: postToRemove } }),
-          Post.bulkCreate(newPosts),
-        ]);
-      })
-      .then((updatedPost) => res.json(updatedPost))
-      .catch((err) => {
-        // console.log(err);
-        res.status(400).json(err);
-      });
-  }),
 
 module.exports = router;

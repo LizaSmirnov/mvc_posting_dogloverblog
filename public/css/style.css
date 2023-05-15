@@ -56,3 +56,50 @@ body {
     padding: 50px;
     background-color: white;
 }
+
+
+.card-title {
+    background-color: #355C7D;
+    color: white;
+    padding: 5px;
+}
+
+.card {
+    background-color: azure;
+}
+
+.card h5, .card p {
+    color: black;
+    font-style: normal;
+}
+
+button {
+    padding: 3px;
+    margin: 5px;
+}
+
+#newpost {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+#content, #editedContent {
+    margin-left: 10vw;
+    margin-right: 10vw;
+}
+
+#create, #update, #delete {
+    margin-left: 30vw;
+    margin-right: 30vw;
+    margin-top: 20px;
+}
+
+#comment {
+width: 80vw;
+margin-top:20px;
+}
+
+#title, #editedTitle {
+    width: 80vw;
+}
