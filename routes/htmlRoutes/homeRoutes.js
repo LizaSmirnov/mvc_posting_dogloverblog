@@ -1,116 +1,73 @@
 const router = require("express").Router();
 const {Post, User} = require('../../models');
 const withAuth = require('../../utils/auth'); 
+const exphbs = require('express-handlebars');
 
 
 //get homepage
-router.get("/", async (req, res) => {
+router.get("/home", async (req, res) => {
  try {
-  const postData = await Post.findAll({
-    include: [{
-      model:User,
-      attributes:['name'],
-    }],
-  });
- 
-  const posts = postData.map((post) => post.get({plain: true}));
-
   res.render("home", {
-    posts,
-    logged_id: req.session.logged_in,
-  });
-} catch (err) {
-  res.status(404).json(err);
-}
-});
-
-  // const posts = [
-  //   { id: 1, title: "Post 1", body: "This is post 1" },
-  //   { id: 2, title: "Post 2", body: "This is post 2" },
-  // ];
-
-
-//get posts 
-router.get("/post/:id", async (req, res) => {
-  try {
-    const postData = await Post.findByPk(req.params.id, {
-      include : [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ]
-    });
-
-    const posts = postData.get({ plain :true });
-    res.render('post', {
-      ...this.post,
-      logged_in:req.session.logged_in
+    logged_in: req.session.logged_in,
     });
   } catch (err) {
-    res.status(404).json(err)
+    res.status(404).json(err);
   }
 });
 
+//get login routes
 
-//when clicked on post grab display user name 
-router.get('/post/:id', async (req, res) => {
-  try {
-    const postData = await Post.findByPk(req.params.id, {
-      include: [
-        {
-          model: User,
-          attributes: ['name'],
-        },
-      ],
-    });
-
-    const post = postData.get({ plain: true });
-
-    res.render('post', {
-      ...post,
-      logged_in: req.session.logged_in
-    });
-  } catch (err) {
-    res.status(500).json(err);
+router.get("/login", (req, res) => {
+  if (req.session.logged_in) {
+    res.redirect("/profile");
+    return;
   }
+  res.render("login");
 });
-
-
 //get signup
 router.get("/signup", (req, res) => {
   if (req.session.logged_in) {
-    res.redirect("/");
+    res.redirect("/profile");
     return;
   }
   res.render("signup");
 });
 
-router.get("/login", (req, res) => {
-  if (req.session.logged_in) {
-    res.redirect("/");
-    return;
-  }
-  res.render("login");
-});
-
-//use withAuth middlewar to prevent access to route unless true to profile
-router.get('/profile', withAuth, async (req, res) => {
+//get profile
+router.get("/profile", withAuth, async (req, res) => {
+  console.log('bacon')
   try {
-    // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
-      attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{ model: Post }],
+      attributes: { exclude: ["password"] },
     });
-
     const user = userData.get({ plain: true });
 
-    res.render('profile', {
+    console.log('made it to here');
+    console.log(user);
+
+    res.render("profile", {
       ...user,
-      logged_in: true
+      logged_in: true,
     });
   } catch (err) {
-    res.status(500).json(err);
+    res.status(404).json(err);
   }
 });
+
+router.get("/post/:id",async (req,res) =>{
+ 
+  const postData = await Post.findByPk(req.params.id, {
+    include: [{ model: User }],
+  })
+  const post = postData.get({ plain: true });
+  console.log(post)
+  const canEdit = req.session.user_id === post.user_id;
+  res.render("single-post",{
+    canEdit,
+    ...post,
+    logged_in: true,
+  })
+
+})
 module.exports = router;

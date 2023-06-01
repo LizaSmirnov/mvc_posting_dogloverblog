@@ -3,9 +3,9 @@ const { User, Post , Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 //get  all posts and assoc user and comments
-router.get('/', (req,res) => {
+router.get('/', async (req,res) => {
   try {
-    Post.findAll({include :[User, Comment]})
+    const dbPosts = await Post.findAll({include :[User, Comment]})
     .then(dbPosts => {
       res.json(dbPosts);
     })
@@ -14,8 +14,9 @@ router.get('/', (req,res) => {
   }
 })
 //get one post by id
-router.get('/:id', (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
+  const dbPosts = await
   Post.findByPk(req.params.id,{include:[User, Comment]})
   .then(dbPosts =>{
     res.json(dbPosts)
@@ -27,32 +28,26 @@ router.get('/:id', (req, res) => {
 
 //create a new post
 router.post('/', withAuth, async (req, res) => {
-  if(!req.session.user){ //have to be logged in to post comment
-    return res.status(401).json({msg:"Please login!"})
-  }
-
     try {
         const newPost = await Post.create({
             ...req.body,
-            title: req.session.title,
             user_id: req.session.user_id,
-            
         });
-        res.status(200).json(newPost);
-        res.json({message:'Post has been created!'})
+        res.status(200).json({message:'Post has been created!'});
     } catch (err) {
         res.status(404).json(err)
     }
 });
 
 // update post
-router.put('/:id', (req, res) => {
+router.put('/:id', async (req, res) => {
   if(!req.session.user){
     return res.status(401).json({msg:"Please login!"})
     return;
   }
+  try{
     // update product data
-    Post.update(req.body, {
+    const updatedPost = Post.update(req.body, {
       where: {
         id: req.params.id,
       },
@@ -64,8 +59,12 @@ router.put('/:id', (req, res) => {
       .catch((err) => {
         // console.log(err);
         res.status(400).json(err);
-      })
-  });
+      });
+      } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 
 //delete post with authenticated id and verified post id
 router.delete('/:id', withAuth, async (req,res) => {

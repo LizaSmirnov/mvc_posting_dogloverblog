@@ -1,30 +1,25 @@
 console.log("login.js loaded")
-
-    document.querySelector('button').addEventListener('click',async (event)=>{
+//goes to login page when button is clicked
+document.querySelector('button').addEventListener('click', async (event)=>{
     event.preventDefault();
-    var name = document.querySelector("input[name=name]").value.trim();
-    var email = document.querySelector("input[name=email]").value.trim();
-    var password = document.querySelector("input[name=password]").value.trim();
-
-    if( !name || !email || !password ) {
-        alert("Wrong email or password!")
-        return;
+    const userObj = {
+    name: document.querySelector("input[name=name]").value.trim(),
+    email: document.querySelector("input[name=email]").value.trim(),
+    password: document.querySelector("input[name=password]").value.trim(),
     }
+    console.log(userObj)
     try {
-    const response = await fetch("/api/users", {
+    const response = await fetch("/api/users/login", {
         method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({name, email, password})
+        body: JSON.stringify(userObj),
+        headers: {"Content-Type": "application/json"}
+        
 })
-    console.log(response)
-    if(response.ok) {
-    document.location.replace("/profile")
-    } else{
-        alert(response.statusText)
+    if (response.ok) {
+        document.location.replace("/profile");
     }
-} catch (err) {
-    console.log(err);   
-};
+}
+catch(err) {
+    console.log(err);
+}   
 });
-
-

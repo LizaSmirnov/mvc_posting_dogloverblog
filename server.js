@@ -4,6 +4,8 @@ const exphbs = require('express-handlebars');
 const routes = require('./routes');
 const path = require('path');
 
+
+
 const sequelize = require('./config/connection');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
@@ -17,11 +19,17 @@ const PORT = process.env.PORT || 3004;
 
 const sessionConfig = {
   secret: 'Super secret secret', // normally this would be an environment variable
-  resave: false,
-  saveUninitialized: false,
   cookie: {
-    expires: 10 * 60 * 1000,
+    maxAge: 5 * 60 * 1000,
+    httpOnly: true,
+    secure: false,
+    sameSite: 'strict',
   },
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize
+  })
 }
 
 app.engine('handlebars', hbs.engine);

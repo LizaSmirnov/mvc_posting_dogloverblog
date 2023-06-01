@@ -1,3 +1,6 @@
+const { Post } = require('../models');
+
+const postData =
 [
     {
       "title": "Goldens are the best",

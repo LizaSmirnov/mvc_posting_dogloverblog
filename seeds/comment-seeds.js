@@ -1,3 +1,6 @@
+const { Comment } = require('../models');
+
+const commentData =
 [
     {
       "body": "I agree!",

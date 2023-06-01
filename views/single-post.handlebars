@@ -1,0 +1,17 @@
+<h1>Your Post</h1>
+<section class="card">
+    <div class="card-body">
+    <h4 class="card-title">{{title}}</h4>
+    <p class="card-text">{{body}}</p>
+<h7>Created By: {{user.name}}</h7>
+
+<div class="row">
+  <div class="col-center">
+
+  </div>
+{{#if canEdit}}
+<button>Edit</button>
+<button>Delete!</button>
+{{/if}}
+
+<srcipt src="/js/single-post.js"></srcipt>
