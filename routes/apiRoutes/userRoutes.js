@@ -6,8 +6,8 @@ const bcrypt = require("bcrypt");
 router.post("/login", async (req, res) => {
   try {
     console.log("post users login hit");
-    console.log(req.body);
     const userData = await User.findOne({ where: { email: req.body.email } });
+    console.log(userData)
     if (!userData) {
       res.status(400).json({ message: "err" });
       return;
@@ -47,7 +47,7 @@ router.post("/login", async (req, res) => {
 });
 
 
-router.get("/logout", (req, res) => {
+router.post("/logout", (req, res) => {
   if (req.session.logged_in) {
     req.session.destroy(() => {
       res.status(204).end();

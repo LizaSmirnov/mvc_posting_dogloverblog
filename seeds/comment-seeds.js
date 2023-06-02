@@ -1,5 +1,3 @@
-const { Comment } = require('../models');
-
 const commentData =
 [
     {
@@ -19,3 +17,4 @@ const commentData =
     }
   ]
   
+  module.exports = commentData;

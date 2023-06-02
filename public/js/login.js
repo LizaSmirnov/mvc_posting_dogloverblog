@@ -3,7 +3,6 @@ console.log("login.js loaded")
 document.querySelector('button').addEventListener('click', async (event)=>{
     event.preventDefault();
     const userObj = {
-    name: document.querySelector("input[name=name]").value.trim(),
     email: document.querySelector("input[name=email]").value.trim(),
     password: document.querySelector("input[name=password]").value.trim(),
     }

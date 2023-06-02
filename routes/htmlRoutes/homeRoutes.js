@@ -7,7 +7,15 @@ const exphbs = require('express-handlebars');
 //get homepage
 router.get("/home", async (req, res) => {
  try {
+  //get all posts
+  const postData = await Post.findAll({
+    include: [{model: User}],
+  });
+  const posts = postData.map((post) => post.get({ plain: true }));
+  console.log(posts)
+  //render all post body and title
   res.render("home", {
+    posts,
     logged_in: req.session.logged_in,
     });
   } catch (err) {
@@ -66,7 +74,7 @@ router.get("/post/:id",async (req,res) =>{
   res.render("single-post",{
     canEdit,
     ...post,
-    logged_in: true,
+    // logged_in: true,
   })
 
 })

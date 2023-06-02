@@ -1,5 +1,3 @@
-const { Post } = require('../models');
-
 const postData =
 [
     {
@@ -19,3 +17,4 @@ const postData =
     }
   ]
   
+  module.exports = postData;

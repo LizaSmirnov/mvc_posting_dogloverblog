@@ -1,5 +1,3 @@
-const { User } = require('../models');
-
 const userData =
 [
     {
@@ -19,3 +17,4 @@ const userData =
     }
   ]
   
+  module.exports = userData;

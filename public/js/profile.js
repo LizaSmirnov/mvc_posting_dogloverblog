@@ -8,7 +8,7 @@ const $loginPageBtn = document.querySelector('.login-page-btn');
 const $signupPageBtn = document.querySelector('.signup-page-btn');
 const $loginForm = document.querySelector('.login-form');  
 const $signupForm = document.querySelector('.signup-form');
-const $logOutBtn = document.querySelector('.logout-btn');
+
 const $profileBtn = document.querySelector('.profile-btn');
 const $homeBtn = document.querySelector('.home-btn');
 
