@@ -1,18 +1,18 @@
 const postData =
 [
     {
-      "title": "Goldens are the best",
-      "body": "They are always happy what else is there to say about them.",
+      "title": "Tech Blog",
+      "body": "This is a tech blog where you can post about your favorite tech topics!",
       "user_id": 1
     },
     {
-      "title": "German Shepards",
-      "body": "German Shepards are smart. They are very protective of their owners too!",
+      "title": "Chat App",
+      "body": "This is a chat app where you can chat with your friends!",
       "user_id": 2
     },
     {
-      "title": "Shiba Inu",
-      "body": "Dog breed from japan, too cute for words.",
+      "title": "Ai intelligence",
+      "body": "This is a blog about Ai intelligence!",
       "user_id": 3
     }
   ]

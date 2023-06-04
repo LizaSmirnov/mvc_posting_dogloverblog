@@ -40,16 +40,13 @@ router.post('/', withAuth, async (req, res) => {
 });
 
 // update post
-router.put('/:id', async (req, res) => {
-  if(!req.session.user){
-    return res.status(401).json({msg:"Please login!"})
-    return;
-  }
+router.put('/:id', async (req, res) => {  
   try{
     // update product data
     const updatedPost = Post.update(req.body, {
       where: {
         id: req.params.id,
+        user_id: req.session.user_id,
       },
     })
       .then((updatedPost) => {

@@ -74,7 +74,7 @@ router.get("/post/:id",async (req,res) =>{
   res.render("single-post",{
     canEdit,
     ...post,
-    // logged_in: true,
+    logged_in: true,
   })
 
 })

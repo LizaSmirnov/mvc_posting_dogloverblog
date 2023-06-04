@@ -1,17 +1,20 @@
 <h1>Your Post</h1>
 <section class="card">
     <div class="card-body">
-    <h4 class="card-title">{{title}}</h4>
-    <p class="card-text">{{body}}</p>
-<h7>Created By: {{user.name}}</h7>
+    <input name="post-title" type="text" class="post-title" placeholder="{{title}}"/>
+    <textarea type="text" class="post-text" placeholder="{{body}}"></textarea>
+<h7>Created By: {{user.name}} on {{createdAt}}</h7>
 
 <div class="row">
   <div class="col-center">
 
   </div>
 {{#if canEdit}}
-<button>Edit</button>
-<button>Delete!</button>
+<button type="submit" class='btn btn-primary' id="editBtn" data-id="{{id}}">Edit</button>
+<button type="submit" class='btn btn-primary' id="deleteBtn" class="btn btn-primary" data-id="{{id}}">Delete!</button>
 {{/if}}
+</div>
+</div>
+</section>
+<script src="/js/single-post.js"></script>
 
-<srcipt src="/js/single-post.js"></srcipt>

@@ -1,4 +1,4 @@
-console.log("home.js loaDED");
+console.log("logout.js loaded");
 const logoutBtn = document.querySelector(".no-button");
 
 logoutBtn.addEventListener("click", async (event) => {

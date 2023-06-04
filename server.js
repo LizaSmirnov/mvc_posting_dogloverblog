@@ -20,7 +20,7 @@ const PORT = process.env.PORT || 3004;
 const sessionConfig = {
   secret: 'Super secret secret', // normally this would be an environment variable
   cookie: {
-    maxAge: 5 * 60 * 1000,
+    maxAge: 60 * 60 * 1000,
     httpOnly: true,
     secure: false,
     sameSite: 'strict',
