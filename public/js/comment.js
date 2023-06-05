@@ -1,4 +1,6 @@
-document.querySelector('#newComment').addEventListener('submit', event => {
+console.log('comment.js loaded!');
+
+document.querySelector('#commentBtn').addEventListener('submit', event => {
     event.preventDefault();
     const comment = document.querySelector('#comment').value;
     const postId = document.querySelector('#postId').value;

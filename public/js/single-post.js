@@ -7,9 +7,9 @@ editPost.addEventListener('click', async event =>{
   console.log("edit button clicked")
         event.preventDefault();
         const title = document.querySelector(('input[name="post-title"]')).value;
-        const body = document.querySelector('textarea[name="content"]').textContent;
+        const body = document.querySelector('textarea[name="post-text"]').value;
         const id = event.target.getAttribute('data-id');
-        console.log(title, body, id)
+        console.log(title, id)
         if (title && body) {
             const response = await fetch(`/api/posts/${id}`, {
                 method: 'PUT',

@@ -1,10 +1,19 @@
 <h1>What people are saying about Tech 🖥️ </h1>
 {{#each posts as |post| }}
+<h2>{{post.title}}</h2>
+<br>
+<h3>{{post.body}}</h3>
+<h4>{{post.comment}}</h4>
+<button type="submit" class='btn btn-primary' id="commentBtn" data-id="{{id}}">Comment!</button>
 
-<h1>{{post.title}}</h1>
-</a>
-<h1>{{post.body}}</h1>
 
+{{#each comments as |comment|}}
+<h4 name='comment-body'{{comment.body}}></h4>
+<h4 name='comment-user'{{comment.id}}></h4>
+<h6>{{createdAt}}</h6>
+<br>
+{{/each}}
 <p>Created by {{user.name}} on {{createdAt}}</p>
 {{/each}}
 
+<script src="/js/comment.js"></script>

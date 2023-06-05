@@ -27,7 +27,7 @@ ul {
     list-style: none;
 }
 
-h1 {
+h1,h2,h3, p {
     margin: 30px 0;
     text-align: center;
     color: blueviolet
@@ -73,10 +73,15 @@ body {
     font-style: normal;
 }
 
-button {
-    padding: 3px;
-    margin: 5px;
+.btn-primary {
+
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    border: 1px solid white;
+    background-color: pink;
 }
+
 
 #newpost {
     display: flex;
