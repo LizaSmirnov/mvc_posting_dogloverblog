@@ -15,8 +15,9 @@
 {{#each posts as |post|}}
 <section class="card">
   <div class="card-body">
-    <h4 class="card-title">{{post.title}}</h4>
-    <p class="card-text">{{post.body}}</p>
+    <h4 class="card-title">Post Title: {{post.title}}</h4>
+    <p class="card-text">Post Body: {{post.body}}</p>
+    <p class="card-text">Created on: {{createdAt}}</p>
     <a href="/post/{{post.id}}" class="btn btn-primary">Edit/Delete Post</a>
   </div>
 </section>

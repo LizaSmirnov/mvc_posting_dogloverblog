@@ -78,4 +78,24 @@ router.get("/post/:id",async (req,res) =>{
   })
 
 })
+
+router.get("/comment/:id",async (req,res) =>{
+   if (!req.session.logged_in) {
+    res.redirect("/login");
+    return;
+   }
+  const postData = await Post.findByPk(req.params.id, {
+    include: [{ model: User }],
+  })
+  const post = postData.get({ plain: true });
+  console.log(post)
+  const canEdit = req.session.user_id === post.user_id;
+  res.render("comment",{
+    canEdit,
+    ...post,
+    logged_in: true,
+  })
+
+}
+);
 module.exports = router;
