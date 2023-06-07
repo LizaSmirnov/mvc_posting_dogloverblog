@@ -31,11 +31,12 @@ editPost.addEventListener('click', async event =>{
 
   deletePost.addEventListener('click', async event =>{
     console.log("delete button clicked")
+    event.preventDefault();
     if (event.target.hasAttribute('data-id')) {
       const id = event.target.getAttribute('data-id');
-  
+  console.log(id)
       const response = await fetch(`/api/posts/${id}`, {
-        method: 'DELETE',
+        method: 'DELETE'
       });
   
       if (response.ok) {

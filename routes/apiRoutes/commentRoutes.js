@@ -13,6 +13,7 @@ router.get('/', (req, res) => {
     })
 });
 
+
 //get one Comment by id
 router.get('/:id', (req, res) => {
     Comment.findOne({
