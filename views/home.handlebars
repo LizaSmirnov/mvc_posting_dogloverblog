@@ -1,17 +1,21 @@
 <h1>What people are saying about Tech 🖥️ </h1>
+<section class="card text-center">
+  <div class="card-body">
 {{#each posts as |post| }}
-<h2>{{post.title}}</h2>
+<h1>Post Title: {{post.title}}</h1>
 <br>
 <h3>{{post.body}}</h3>
 <h4>{{post.comment}}</h4>
-<a href='/comment/{{post.id}}'>Comment!</a>
-
+<p>Created by {{user.name}} on {{createdAt}}</p>
+<br>
+<h3>Comments:</h3>
 {{#each comments as |comment|}}
-<h4 name='comment-body'>{{comment.body}}</h4>
-<h4 name='comment-user'>{{comment.id}}</h4>
-<h6>{{createdAt}}</h6>
+<h6 name='comment-body'>{{comment.body}}</h6>
+<h6 name='comment-user'>Written by: {{comment.name}}</h6>
+<h6>{{comment.date}}</h6>
 <br>
 {{/each}}
-<p>Created by {{user.name}} on {{createdAt}}</p>
+<a href='/comment/{{post.id}}'>Add a Comment!</a>
 {{/each}}
-
+</div>
+</section>

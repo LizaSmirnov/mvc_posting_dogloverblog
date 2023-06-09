@@ -1,5 +1,5 @@
 <section class="card text-center">
-  <input type="hidden" name="post-id" value="{{id}}"/>
+   <input type="hidden" name="user-name" value="{{user.name}}"/>
   <div class="card-body">
     <h3 class="card-title">Post Title: {{title}}</h3>
     <p class="card-text">Post Body: {{body}}</p>
@@ -12,12 +12,6 @@
         <button type="click" class="btn btn-primary" id="createBtn">Create</button>
       </div>
     </form>
-    <h3 class="card-title">Other Comments:</h3>
-    {{#each comments}}
-      <h4 name="comment-body">{{this.body}}</h4>
-      <h4 name="comment-user">{{this.user_id}}</h4>
-      <h6>{{this.date}}</h6>
-    {{/each}}
   </div>
 </section>
 

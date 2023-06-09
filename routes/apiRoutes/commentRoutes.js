@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Comment, User } = require('../../models');
+const { Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 
@@ -9,7 +9,9 @@ router.get('/', (req, res) => {
         // model: User,
         attributes: [
             'id',
-            'comment_text',
+            'comment_body',
+            'comment_date',
+            'comment_name',
             'user_id',
             'post_id',
             'created_at'
@@ -48,24 +50,26 @@ router.get('/:id', (req, res) => {
 });
 
 //create a new Comment
-router.post('/', withAuth, async (req, res) => {
+router.post('/', withAuth, (req, res) => {
     //check the session
+    console.log('post route hit')
     if(req.session){
-        const newComment = await Comment.create({
-            ...req.body,
+        Comment.create({
+            ...req.body, //spread operator
+
+
             // use the id from the session
             user_id: req.session.user_id,
-            post_id: req.body.post_id,
-
+            post_id: req.body.post_id
         })
+
         .then(dbCommentData => res.json(dbCommentData))
         .catch(err => {
             console.log(err);
-            res.status(400).json(err)
+            res.status(404).json(err)
         })
-    } return document.location.windows('/home');
+    }
 });
-
 
 
 module.exports = router;

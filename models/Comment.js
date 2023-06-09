@@ -16,6 +16,10 @@ Comment.init(
         type: DataTypes.STRING,
         allowNull: false,
     },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     date: {
         type:DataTypes.DATE,
         defaultValue: DataTypes.NOW,

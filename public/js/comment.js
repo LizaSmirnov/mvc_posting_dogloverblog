@@ -1,3 +1,4 @@
+
 console.log('comment.js loaded!');
 
 
@@ -10,27 +11,23 @@ createCommentBtn.addEventListener('click', async (event) => {
 async function createComment(event) {
     event.preventDefault();
     console.log('createComment fired!')
-    const comment = document.querySelector('textarea[name="comment-body"]').value.trim();
-    const postId = document.querySelector('input[name="post-id"]').value;
-    console.log(postId);
-    console.log(comment);
-
-    if (comment) {
+    const body = document.querySelector('textarea[name="comment-body"]').value.trim();
+    const name = document.querySelector('input[name="user-name"]').value;
+    console.log(body, name)
+    if (name) {
         const response = await fetch('/api/comments', {
             method: 'POST',
-            body: JSON.stringify({
-                comment_body: comment,
-                post_id: postId
-            }),
+            body: JSON.stringify({ body, name }),
             headers: {
-                'Content-Type': 'application/json'
-            }
+                'Content-Type': 'application/json',
+            },
         });
         if (response.ok) {
             document.location.reload();
         } else {
-            alert(response.statusText);
+            console.log(response.statusText);
         }
-    };
-} 
+    }
+}
+
 
