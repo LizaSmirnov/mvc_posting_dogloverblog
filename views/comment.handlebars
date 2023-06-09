@@ -1,15 +1,23 @@
-<section  class="card text-center">
-  <input type="hidden" name="post-id" value="{{post.id}}"/>
+<section class="card text-center">
+  <input type="hidden" name="post-id" value="{{id}}"/>
   <div class="card-body">
+    <h3 class="card-title">Post Title: {{title}}</h3>
+    <p class="card-text">Post Body: {{body}}</p>
     <h3 class="card-title">Post a Comment:</h3>
     <form class="form new-comment-form" id="newCommentForm">
       <div class="form-group">
-        <textarea class="form-input" id="comment-body" name="comment-body" post-id="{{post.id}}"></textarea>
+        <textarea class="form-input" id="comment-body" name="comment-body" post-id="{{id}}"></textarea>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-primary" id="createBtn">Create</button>
+        <button type="click" class="btn btn-primary" id="createBtn">Create</button>
       </div>
     </form>
+    <h3 class="card-title">Other Comments:</h3>
+    {{#each comments}}
+      <h4 name="comment-body">{{this.body}}</h4>
+      <h4 name="comment-user">{{this.user_id}}</h4>
+      <h6>{{this.date}}</h6>
+    {{/each}}
   </div>
 </section>
 

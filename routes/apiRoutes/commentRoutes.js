@@ -21,6 +21,8 @@ router.get('/', (req, res) => {
         console.log(err);
         res.status(500).json(err)
     })
+    
+    console.log(CommentData, 'this is the comment data')
 });
 
 
@@ -47,19 +49,21 @@ router.get('/:id', (req, res) => {
 
 //create a new Comment
 router.post('/', withAuth, async (req, res) => {
-    if(!req.session.loggedIn){
-        res.redirect('/login'); //if not logged in, redirect to login page
-    }
-    try {
+    //check the session
+    if(req.session){
         const newComment = await Comment.create({
             ...req.body,
+            // use the id from the session
             user_id: req.session.user_id,
-        });
-        res.status(200).json(newComment);
-        res.json({message:'Comment has been created!'})
-    } catch (err) {
-        res.status(404).json(err)
-    }
+            post_id: req.body.post_id,
+
+        })
+        .then(dbCommentData => res.json(dbCommentData))
+        .catch(err => {
+            console.log(err);
+            res.status(400).json(err)
+        })
+    } return document.location.windows('/home');
 });
 
 

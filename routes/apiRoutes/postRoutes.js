@@ -17,7 +17,16 @@ router.get('/', async (req,res) => {
 router.get('/:id', async (req, res) => {
   try {
   const dbPosts = await
-  Post.findByPk(req.params.id,{include:[User, Comment]})
+  Post.findOne({
+    where: {
+      id: req.params.id
+    },
+    include: [{
+      model: Comment,
+      include: [User]
+    }
+    ]
+  })
   .then(dbPosts =>{
     res.json(dbPosts)
   })
