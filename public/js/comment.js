@@ -14,7 +14,7 @@ async function createComment(event) {
     const body = document.querySelector('textarea[name="comment-body"]').value.trim();
     const name = document.querySelector('input[name="user-name"]').value;
     const post_id = document.querySelector('input[name="post-id"]').value;
- 
+ console.log(body, name, post_id)
     if (body && name && post_id) {
         const response = await fetch('/api/comments', {
             method: 'POST',
