@@ -13,14 +13,14 @@ const hbs = exphbs.create({});
 
 const app = express();
 
-const PORT = process.env.PORT || 3004;
+const PORT = process.env.PORT || 3000;
 
 // setup express to use handlebars as our template engine
 
 const sessionConfig = {
   secret: 'Super secret secret', // normally this would be an environment variable
   cookie: {
-    maxAge: 60 * 60 * 1000,
+    maxAge: 8 * 60 * 1000,
     httpOnly: true,
     secure: false,
     sameSite: 'strict',
