@@ -13,7 +13,7 @@ const hbs = exphbs.create({});
 
 const app = express();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3306;
 
 // setup express to use handlebars as our template engine
 
