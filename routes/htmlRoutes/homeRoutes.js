@@ -9,7 +9,8 @@ const exphbs = require('express-handlebars');
 
 
 //get homepage
-router.get("/home", async (req, res) => {
+router.get("/", async (req, res) => {
+  res.redirect("/home");
   
  try {
   //get all posts
