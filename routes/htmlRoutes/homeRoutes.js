@@ -7,9 +7,8 @@ const exphbs = require('express-handlebars');
 //if req.session.logged_in is true, redirect to profile
 //if req.session.logged_in is false, render login page
 
-
 //get homepage
-router.get("/", async (req, res) => {
+router.get("/home", async (req, res) => {
   // res.redirect("/home");
   
  try {
@@ -107,6 +106,10 @@ router.get("/comment/:id",async (req,res) =>{
 }
 );
 
+
+app.get("*", (req, res) => {
+  res.redirect('/home');
+})
 
 
 
