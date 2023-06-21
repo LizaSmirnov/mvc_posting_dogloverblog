@@ -1,3 +1,4 @@
+console.log("HEROKU STARTED ME UP")
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
@@ -13,7 +14,7 @@ const hbs = exphbs.create({});
 
 const app = express();
 
-const PORT = process.env.PORT || 3306;
+const PORT = process.env.PORT || 3333;
 
 // setup express to use handlebars as our template engine
 

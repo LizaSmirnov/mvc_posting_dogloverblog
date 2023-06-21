@@ -8,14 +8,14 @@
 </head>
   <body>
     <header>
-      <h1><a href ='/home' id="navHeader" class="text-pink">Tech🖥️Blog</a></h1>
+      <h1><a href ='/' id="navHeader" class="text-pink">Tech🖥️Blog</a></h1>
           {{#if logged_in}}
-              <a href="/home">Home🏠</a>
+              <a href="/">Home🏠</a>
               <a href="/profile">Profile📓</a>
               <button class="no-button" id="logout">Logout📕</button>
           <script src="/js/logout.js"></script>
           {{else}}
-              <a href="/home">Home🏠</a>
+              <a href="/">Home🏠</a>
               <a href="/login">Login📗</a>
               <a href="/signup">Signup💎</a>
           {{/if}}
